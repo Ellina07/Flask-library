@@ -1,3 +1,5 @@
+import os
+
 import requests
 from flask import Flask, render_template, request, make_response, session, redirect, abort, jsonify
 from flask_restful import abort, Api
@@ -252,8 +254,9 @@ def main():
     # для одного объекта
     api.add_resource(wishlist_resources.WishlistResource, '/api/v2/wishlist/<int:wishlist_id>')
 
-    app.run()
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     main()
