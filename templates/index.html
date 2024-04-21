@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Wishlist</h1>
+{% if not current_user.is_authenticated %}
+    <a>Привет, неавторизованный пользователь</a>
+    <div>
+        <img src="{{url_for('static', filename='books.jpg')}}" />
+    </div>
+{% endif %}
+{% if current_user.is_authenticated %}
+    <a href="wishlist" class="btn btn-primary">Добавить книгу</a>
+    <h2>Хочу прочитать</h2>
+    {% for item in wishlist%}
+        {% if current_user.is_authenticated and current_user == item.user and item.status.status == 'Хочу прочитать'%}
+        <div class="col-md6 border rounded">
+            <h3>{{item.title}}</h3>
+            <div>
+                {{item.author}}, {{item.genre.genre}}
+            </div>
+        </div>
+        <div>
+            <a href="/wishlist/{{ item.id }}" class="btn btn-warning">
+                Изменить
+            </a>
+            <a href="/wishlist_delete/{{ item.id }}" class="btn btn-danger">
+                Удалить
+            </a>
+            <a href="/wishlist_edit_status/{{ item.id }}" class="btn btn-info">
+                Изменить статус
+            </a>
+        </div>
+    <div>
+
+    </div>
+    {% endif %}
+    {% endfor %}
+    <h2>В процессе</h2>
+    {% for item in wishlist%}
+        {% if current_user.is_authenticated and current_user == item.user and item.status.status == 'В процессе'%}
+        <div class="col-md6 border rounded">
+            <h3>{{item.title}}</h3>
+            <div>
+                {{item.author}}, {{item.genre.genre}}
+            </div>
+        </div>
+        <div>
+            <a href="/wishlist/{{ item.id }}" class="btn btn-warning">
+                Изменить
+            </a>
+            <a href="/wishlist_delete/{{ item.id }}" class="btn btn-danger">
+                Удалить
+            </a>
+            <a href="/wishlist_edit_status/{{ item.id }}" class="btn btn-info">
+                Изменить статус
+            </a>
+        </div>
+    {% endif %}
+    {% endfor %}
+    <div>
+
+    </div>
+    <h2>Прочитано</h2>
+    {% for item in wishlist%}
+        {% if current_user.is_authenticated and current_user == item.user and item.status.status == 'Прочитано'%}
+        <div class="col-md6 border rounded">
+            <h3>{{item.title}}</h3>
+            <div>
+                {{item.author}}, {{item.genre.genre}}
+            </div>
+        </div>
+        <div>
+            <a href="/wishlist/{{ item.id }}" class="btn btn-warning">
+                Изменить
+            </a>
+            <a href="/wishlist_delete/{{ item.id }}" class="btn btn-danger">
+                Удалить
+            </a>
+            <a href="/wishlist_edit_status/{{ item.id }}" class="btn btn-info">
+                Изменить статус
+            </a>
+        </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endblock %}
