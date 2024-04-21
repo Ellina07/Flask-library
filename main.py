@@ -248,7 +248,6 @@ def main():
     db_session.global_init("db/books.db")
     app.register_blueprint(wishlist_api.blueprint)
 
-
     api.add_resource(wishlist_resources.WishlistListResource, '/api/v2/wishlist')
 
     # для одного объекта
